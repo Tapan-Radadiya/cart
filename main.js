@@ -485,13 +485,13 @@ var productList = [
 const item = document.getElementById("productList")
 const cart = document.getElementById("cartList")
 let totalCartPrice = 0
-
+let itemCartQuan;
 productList.forEach((data) => {
+
     const productData = document.createElement("div")
     productData.setAttribute("id", `item${data.id}`)
     productData.setAttribute("class", "productData")
-    let quant = 1
-    let curQuant = {ItemId:data.id,quant:1}
+    let curQuant = { ItemId: data.id, quant: 1 }
     const itemId = document.createElement("h4")
     const itemTitle = document.createElement("h4")
     const price = document.createElement("h4")
@@ -548,20 +548,20 @@ productList.forEach((data) => {
 
     productData.append(itemId, itemTitle, price, description, category, image, rate, count, increBtn, itemQuant, decreBtn, addToCart)
     item.appendChild(productData)
-    
+
     function addItem(event) {
-        
+
         let curItem = parseInt(itemQuant.value)
-        if(curItem >= 1){
+        if (curItem >= 1) {
             decreBtn.disabled = false
         }
-        
+
         curItem += 1
         itemQuant.value = curItem
     }
     function removeItem(event) {
         let curItem = parseInt(itemQuant.value)
-        if(curItem == 1){
+        if (curItem == 1) {
             decreBtn.disabled = true
             return
         }
@@ -574,35 +574,64 @@ productList.forEach((data) => {
     function addItemToCart(event) {
         addToCart.disabled = true
         let itemId = parseInt(addToCart.id.slice(7, 9))
-        const cartItemDiv = document.createElement("div")
-        cartItemDiv.setAttribute("id", `cartItem${itemId}`)
-        cartItemDiv.setAttribute("style", "border-bottom: 1px solid red;margin-top:50px;")
-        const cartItemTitle = document.createElement("h4")
-        const cartItemDesc = document.createElement("h4")
-        const cartItemPrice = document.createElement("h4")
-        const cartItemImage = document.createElement("img")
-        const cartItemQuant = document.createElement("input")
-        
 
-        const totalCart = document.getElementById("TotalPrice")
-        cartItemQuant.setAttribute("type", "text")
-        cartItemQuant.disabled = true
-        cartItemQuant.value = itemQuant.value
-        let curItemCount = parseInt(itemQuant.value)
-        totalCartPrice += curItemCount * data.price
-        totalCart.innerText = totalCartPrice
-        cartItemQuant.setAttribute("id", `cartListtxtQty${itemId}`)
-        cartItemQuant.setAttribute("class", "itemQuant")
-        cartItemImage.setAttribute("src", data.image)
-        cartItemImage.setAttribute("style", "width:10%")
+        if (!itemCartQuan[itemId]) {
+            itemCartQuan[itemId] = {
+                title: data.title,
+                price: data.price,
+                quantity: 1
+            }
+        }
+        else {
+            itemCartQuan[itemId].quantity++;
+        }
+        updateCartQuant()
 
-        const titleTextNode = document.createTextNode(itemTitle.innerText)
-        const descriptionTextNode = document.createTextNode(description.innerText)
-        const priceTextNode = document.createTextNode(price.innerText)
+        function updateCartQuant() {
+            cart.innerHTML = ""
+            let totalCartPrice = 0
 
-        cartItemTitle.appendChild(titleTextNode)
-        cartItemDesc.appendChild(descriptionTextNode)
-        cartItemPrice.appendChild(priceTextNode)
+            Object.keys(itemCartQuan).forEach((itemId) => {
+                const item = itemCartQuan[itemId]
+                const cartItemDiv = document.createElement("div")
+                cartItemDiv.setAttribute("id", `cartItem${itemId}`)
+                cartItemDiv.setAttribute("style", "border-bottom: 1px solid red;margin-top:50px;")
+                const cartItemTitle = document.createElement("h4")
+                const cartItemDesc = document.createElement("h4")
+                const cartItemPrice = document.createElement("h4")
+                const cartItemImage = document.createElement("img")
+                const cartItemQuant = document.createElement("input")
+
+
+                cartItemQuant.setAttribute("type", "text")
+                cartItemQuant.disabled = true
+                cartItemQuant.value = item.quantity
+                totalCartPrice = item.price * item.quantity
+                cartItemQuant.setAttribute("id", `cartListQty${itemId}`)
+                cartItemQuant.setAttribute("class", "itemQuant")
+                cartItemImage.setAttribute("src", data.image)
+                cartItemImage.setAttribute("style", "width:10%;")
+
+                const titleTextNode = document.createTextNode(item.title)
+                const descriptionTextNode = document.createTextNode(data.description)
+                const priceTextNode = document.createTextNode(item.price)
+
+
+                cartItemTitle.appendChild(titleTextNode)
+                cartItemDesc.appendChild(descriptionTextNode)
+                cartItemPrice.appendChild(priceTextNode)
+
+                const totalPrice = document.createElement("p")
+                totalPrice.setAttribute("id", `TotalPrice${itemId}`)
+                totalPrice.innerText = item.price * item.quantity
+
+                cartItemDiv.append(cartItemImage, cartItemTitle, cartItemDesc, cartItemPrice, cartItemQuant, totalPrice)
+                cart.appendChild(cartItemDiv)
+            })
+            const totalCart = document.getElementById("TotalPrice")
+            totalCart.innerText = totalCartPrice.toFixed(2)
+            cart.appendChild(totalCart)
+        }
 
         const cartListIncrement = document.createElement("button")
         cartListIncrement.textContent = "+"
