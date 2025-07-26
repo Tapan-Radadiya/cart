@@ -5,9 +5,12 @@ import { DocsModule } from './docs/docs.module';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
 
+import { PrismaModule } from './prisma/prisma.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
     UploadModule,
     DocsModule,
     ChatModule,
