@@ -11,6 +11,10 @@
     "prisma": "prisma"
   },
   "dependencies": {
+    "openai": "^4.20.5",
+    "uuid": "^9.0.1",
+    "mkdirp": "^3.0.1",
+    "@nestjs/platform-express": "^10.3.7",
     "@nestjs/common": "^10.3.7",
     "@nestjs/core": "^10.3.7",
     "@nestjs/platform-fastify": "^10.3.7",
