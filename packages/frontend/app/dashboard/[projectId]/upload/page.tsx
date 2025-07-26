@@ -15,7 +15,7 @@ export default function UploadPage({ params }: { params: { projectId: string } }
     body.append('projectId', params.projectId);
 
     setStatus('Uploading...');
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3333'}/api/upload`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333'}/api/upload`, {
       method: 'POST',
       body,
     });

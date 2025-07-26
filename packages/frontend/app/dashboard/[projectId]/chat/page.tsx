@@ -9,7 +9,7 @@ export default function ChatPage({ params }: { params: { projectId: string } }) 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessages(msgs => [...msgs, { from: 'user', text: input }]);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3333'}/api/chat`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333'}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ projectId: params.projectId, message: input }),

@@ -6,7 +6,7 @@ export default function DocsPage({ params }: { params: { projectId: string } }) 
   const [docs, setDocs] = useState<string>('Loading...');
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3333'}/api/projects/${params.projectId}/docs`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333'}/api/projects/${params.projectId}/docs`)
       .then(res => res.json())
       .then(data => setDocs(data.docs || 'No docs found'))
       .catch(() => setDocs('Error loading docs'));
