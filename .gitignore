@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.*
+/uploads
+/packages/backend/node_modules
+/packages/frontend/node_modules
+/packages/backend/dist
+/packages/backend/.prisma
+/packages/backend/prisma/dev.db
+/packages/frontend/.next
+/packages/frontend/out
+/packages/frontend/.env.local
