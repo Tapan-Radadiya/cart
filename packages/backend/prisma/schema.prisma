@@ -30,7 +30,7 @@ model ApiSpec {
   specType  ApiSpecType  @map("type")
   filename  String       @unique
   filePath  String
-  rawText   String
+  rawText   String?
   createdAt DateTime     @default(now())
 }
 

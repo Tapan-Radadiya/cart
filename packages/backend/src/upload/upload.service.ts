@@ -45,9 +45,12 @@ export class UploadService {
     const outPath = path.join('./uploads', filename);
     await fsPromises.writeFile(outPath, file.buffer);
 
-    let rawText: string = null;
+    // For zip files, rawText should be null to satisfy schema
+    let rawText: string | null = null;
     if (!isZip) {
       rawText = file.buffer.toString('utf8');
+    } else {
+      rawText = null;
     }
 
     const apiSpec = await this.prisma.apiSpec.create({
