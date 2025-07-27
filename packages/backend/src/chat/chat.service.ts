@@ -1,8 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { DocsService } from '../docs/docs.service';
 import { ConfigService } from '@nestjs/config';
-// You must install the 'openai' v4 package and types for this import to work
-import { ChatCompletionMessageParam, OpenAI } from 'openai';
+// Updated for openai v4:
+import OpenAI from 'openai';
+import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
 @Injectable()
 export class ChatService {

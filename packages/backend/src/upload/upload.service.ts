@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import * as mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 
 @Injectable()
 export class UploadService {
@@ -35,7 +35,7 @@ export class UploadService {
     const isYaml = ext === '.yaml' || ext === '.yml';
     const isJson = ext === '.json';
 
-    let specType: 'OPENAPI' | 'CODE' = null;
+    let specType: 'OPENAPI' | 'CODE';
     if (isZip) specType = 'CODE';
     else if (isYaml || isJson) specType = 'OPENAPI';
     else throw new UnsupportedMediaTypeException('Only .yaml, .yml, .json, .zip allowed');
