@@ -1,0 +1,31 @@
+[33m4900697[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #9 from Tapan-Radadiya/cosine/fix/multer-export-error-n6myq6
+[33m09d166a[m[33m ([m[1;31morigin/cosine/fix/multer-export-error-n6myq6[m[33m)[m refactor: use MulterFile type in upload controller and service
+[33m0ab6510[m Merge pull request #8 from Tapan-Radadiya/cosine/fetch/current-repo-code-h1kz90
+[33md913f36[m[33m ([m[1;31morigin/cosine/fetch/current-repo-code-h1kz90[m[33m)[m chore: add types for node, express, and multer in tsconfig
+[33m7d29aac[m Merge pull request #7 from Tapan-Radadiya/cosine/greeting/hello-t19e2j
+[33mcee4afd[m[33m ([m[1;31morigin/cosine/greeting/hello-t19e2j[m[33m)[m feat: add multer and its types, update JWT secret config, remove createdAt from project selection
+[33meeea7e2[m Merge pull request #6 from Tapan-Radadiya/cosine/greet-user-gqdbm0
+[33m64cc3f6[m[33m ([m[1;31morigin/cosine/greet-user-gqdbm0[m[33m)[m feat: update auth route and enhance docs fetching logic
+[33m2611149[m feat: implement NextAuth authentication and session management; add middleware for protected routes
+[33m5ba69e0[m feat: add projects module with CRUD operations and JWT auth guard
+[33m568ed31[m[33m ([m[1;32mfeat/auth-integration[m[33m)[m `Update frontend tsconfig.json with additional settings and paths`
+[33m186a698[m Merge pull request #5 from Tapan-Radadiya/cosine/greet/hiii-r3mjco
+[33md6fcff7[m feat: add DocsModule to ChatModule imports and export DocsService from DocsModule
+[33m4423552[m[33m ([m[1;32mfix/chat-di-error[m[33m)[m Merge pull request #4 from Tapan-Radadiya/cosine/cart/update-codebase-7vbdr3
+[33m7b80f22[m fix: update OpenAI import and refactor mkdirp usage in services
+[33mae93194[m feat(auth): update register method to include name and use bcrypt for hashing
+[33m9ed2dc9[m Merge pull request #3 from Tapan-Radadiya/cosine/greeting/hii-1wjhw0
+[33ma5b2b14[m[33m ([m[1;31morigin/cosine/greeting/hii-1wjhw0[m[33m)[m feat: enable experimental decorators and emit decorator metadata in TypeScript config
+[33mc1dfa1f[m Merge pull request #2 from Tapan-Radadiya/cosine/Hoo-liapzg
+[33md278fdb[m feat: add PrismaModule import to auth, chat, docs, and upload modules
+[33mb1a4c3c[m feat: add Prisma module and service for database interaction
+[33mc7800df[m Merge pull request #1 from Tapan-Radadiya/cosine/greet-user-q57n1c
+[33m0637ec1[m[33m ([m[1;31morigin/cosine/greet-user-q57n1c[m[33m)[m fix: update API URL from NEXT_PUBLIC_BACKEND_URL to NEXT_PUBLIC_API_URL in chat, docs, and upload pages
+[33mca5cddd[m fix: allow rawText to be null in ApiSpec and update upload service handling for zip files
+[33m77db5e3[m chore: update env.example to include JWT and NextAuth secrets
+[33m3842e51[m chore: update example environment variables for backend and frontend
+[33m258a1df[m feat: add new dependencies and update ApiSpec model structure
+[33maad4842[m feat(auth): add JWT authentication and user registration logic with error handling
+[33m0cb82b5[m feat: initialize AI documentation platform with NestJS and Next.js, add .gitignore, README, configs, backend and frontend structure
+[33m7150c60[m dasdsa
+[33m8ac8b5a[m add files
