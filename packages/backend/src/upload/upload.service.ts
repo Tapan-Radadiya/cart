@@ -5,13 +5,11 @@ import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { mkdirp } from 'mkdirp';
 
-import { File as MulterFile } from 'multer';
-
 @Injectable()
 export class UploadService {
   constructor(private prisma: PrismaService) {}
 
-  async handleUpload(file: MulterFile, projectId: string) {
+  async handleUpload(file: Express.Multer.File, projectId: string) {
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
     if (!file) throw new BadRequestException('No file uploaded');
