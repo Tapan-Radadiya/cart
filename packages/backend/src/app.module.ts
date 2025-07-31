@@ -4,6 +4,7 @@ import { UploadModule } from './upload/upload.module';
 import { DocsModule } from './docs/docs.module';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
+import { ProjectsModule } from './projects/projects.module';
 
 import { PrismaModule } from './prisma/prisma.module';
 
@@ -15,6 +16,7 @@ import { PrismaModule } from './prisma/prisma.module';
     DocsModule,
     ChatModule,
     AuthModule,
+    ProjectsModule,
   ],
 })
 export class AppModule {}
