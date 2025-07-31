@@ -8,14 +8,14 @@ export class ProjectsService {
   async listForUser(userId: string) {
     return this.prisma.project.findMany({
       where: { ownerId: userId },
-      select: { id: true, name: true, createdAt: true },
+      select: { id: true, name: true },
     });
   }
 
   async createForUser(userId: string, name: string) {
     return this.prisma.project.create({
       data: { name, ownerId: userId },
-      select: { id: true, name: true, createdAt: true },
+      select: { id: true, name: true },
     });
   }
 }
