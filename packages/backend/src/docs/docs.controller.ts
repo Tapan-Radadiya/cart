@@ -1,13 +1,14 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { DocsService } from './docs.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('api/projects/:id/docs')
 export class DocsController {
   constructor(private readonly docsService: DocsService) {}
 
   @Get()
   async getDocs(@Param('id') projectId: string) {
-    // TODO: fetch latest ApiSpec for project from DB
     return this.docsService.getLatestSpec(projectId);
   }
 }
