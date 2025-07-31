@@ -32,7 +32,7 @@ export default function UploadPage({ params }: { params: { projectId: string } }
   };
 
   return (
-    <div className="container max-w-lg mx-auto">
+    <div className="max-w-lg mx-auto">
       <h1 className="text-xl font-bold mb-4">Upload OpenAPI/Code for Project</h1>
       <form onSubmit={handleUpload}>
         <input

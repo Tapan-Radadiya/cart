@@ -11,7 +11,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333"}/auth/login`,
+          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333"}/api/auth/login`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -22,10 +22,15 @@ const handler = NextAuth({
           }
         );
 
-        const user = await res.json();
+        const data = await res.json();
 
-        if (res.ok && user) {
-          return user;
+        // Expect { access_token }
+        if (res.ok && data?.access_token) {
+          return {
+            id: credentials?.email,
+            email: credentials?.email,
+            accessToken: data.access_token,
+          };
         }
         return null;
       },
@@ -39,14 +44,19 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.accessToken = user.token;
+      if (user && user.accessToken) {
+        token.accessToken = user.accessToken;
+        token.email = user.email;
       }
       return token;
     },
     async session({ session, token }) {
       if (token?.accessToken) {
         session.accessToken = token.accessToken;
+      }
+      // Ensure session.user.email is set from token
+      if (session.user && token?.email) {
+        session.user.email = token.email;
       }
       return session;
     },
