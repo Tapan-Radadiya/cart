@@ -1,49 +1,46 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const success = searchParams.get("success");
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333"}/api/auth/register`;
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
-    const res = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-    if (res?.ok) {
-      router.push("/dashboard");
-    } else {
-      setError("Invalid email or password");
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      if (res.ok) {
+        router.push("/login?success=1");
+      } else {
+        const data = await res.json();
+        setError(data.message || "Registration failed");
+      }
+    } catch (err: any) {
+      setError("Network error");
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   }
 
   return (
     <div className="max-w-md mx-auto mt-12 p-8 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Log in to your account</h1>
-      {success && (
-        <div
-          className="mb-4 p-3 bg-green-100 text-green-700 rounded"
-          role="status"
-          aria-live="polite"
-        >
-          Registration successful! Please log in.
-        </div>
-      )}
+      <h1 className="text-2xl font-bold mb-6 text-center">Create your account</h1>
       {error && (
         <div
           className="mb-4 p-3 bg-red-100 text-red-700 rounded"
@@ -53,7 +50,22 @@ export default function LoginPage() {
           {error}
         </div>
       )}
-      <form onSubmit={handleSubmit} aria-label="Login form">
+      <form onSubmit={handleSubmit} aria-label="Register form">
+        <div className="mb-4">
+          <label htmlFor="name" className="block font-medium mb-1">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            autoComplete="name"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            aria-required="true"
+          />
+        </div>
         <div className="mb-4">
           <label htmlFor="email" className="block font-medium mb-1">
             Email
@@ -76,9 +88,10 @@ export default function LoginPage() {
           <input
             id="password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             className="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
             required
+            minLength={6}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             aria-required="true"
@@ -90,13 +103,13 @@ export default function LoginPage() {
           aria-disabled={submitting}
           disabled={submitting}
         >
-          {submitting ? "Logging in..." : "Login"}
+          {submitting ? "Registering..." : "Register"}
         </button>
       </form>
       <p className="mt-6 text-center text-gray-600">
-        Don't have an account?{" "}
-        <Link href="/register" className="text-blue-600 hover:underline">
-          Register
+        Already have an account?{" "}
+        <Link href="/login" className="text-blue-600 hover:underline">
+          Login
         </Link>
       </p>
     </div>
