@@ -22,23 +22,19 @@ async function main() {
     },
   });
 
-  // Upsert project
-  const project = await prisma.project.upsert({
-    where: {
-      // Unique constraint must be provided; we use a composite of name+ownerId
-      // But schema only has id as unique. Instead, check for existence:
-      id: (
-        await prisma.project.findFirst({
-          where: { name: "Demo Project", ownerId: user.id },
-        })
-      )?.id || undefined,
-    },
-    update: {},
-    create: {
-      name: "Demo Project",
-      ownerId: user.id,
-    },
+  // Find or create project by name and ownerId
+  let project = await prisma.project.findFirst({
+    where: { name: "Demo Project", ownerId: user.id },
   });
+
+  if (!project) {
+    project = await prisma.project.create({
+      data: {
+        name: "Demo Project",
+        ownerId: user.id,
+      },
+    });
+  }
 
   // Create a sample ApiSpec if not exists
   const existingApiSpec = await prisma.apiSpec.findFirst({
