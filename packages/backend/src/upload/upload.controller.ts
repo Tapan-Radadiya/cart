@@ -2,7 +2,6 @@ import { Controller, Post, UploadedFile, UseInterceptors, Body, Req, Res, UseGua
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { Request, Response } from 'express';
-import { File as MulterFile } from 'multer';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
@@ -13,7 +12,7 @@ export class UploadController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
-    @UploadedFile() file: MulterFile,
+    @UploadedFile() file: Express.Multer.File,
     @Body('projectId') projectId: string,
     @Res() res: Response,
   ) {
