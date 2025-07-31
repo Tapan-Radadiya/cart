@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // TODO: Hook up NextAuth (Credentials) to backend /auth/login
   return (
     <div className="max-w-md mx-auto mt-12 bg-white shadow p-8 rounded">
@@ -15,14 +15,14 @@ export default function LoginPage() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           className="w-full border px-3 py-2 rounded"
           type="password"
           placeholder="Password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded font-semibold">
           Sign in
