@@ -13,11 +13,8 @@ export class ChatService {
   ) {}
 
   async reply(projectId: string, userPrompt: string) {
-    // Prefer GEMINI_API_KEY, fallback to OPENAI_API_KEY for backward compatibility
     const geminiApiKey = this.config.get('GEMINI_API_KEY') || this.config.get('OPENAI_API_KEY');
-    if (!geminiApiKey) {
-      throw new InternalServerErrorException('Gemini API key missing');
-    }
+    if (!geminiApiKey) throw new InternalServerErrorException('Gemini API key missing');
 
     const latestSpec = await this.docsService.getLatestSpec(projectId);
 
@@ -27,19 +24,10 @@ export class ChatService {
     });
 
     const systemPrompt = `You are an API docs assistant. The latest uploaded API spec is:\n\n${latestSpec.rawText || '[binary spec]'}\n\nAnswer questions about this API.`;
+
     const messages: ChatCompletionMessageParam[] = [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt },
-    ];
-
-    const completion = await openai.chat.completions.create({
-      model: 'gemini-1.5-pro',
-      messages,
-      max_tokens: 800,
-    });
-
-    return { reply: completion.choices[0].message.content };
-  },
     ];
 
     const completion = await openai.chat.completions.create({
