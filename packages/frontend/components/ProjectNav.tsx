@@ -24,7 +24,7 @@ export default function ProjectNav({ projectId, active }: Props) {
             className={
               isActive
                 ? "px-3 py-2 rounded-t-md bg-brand-600 text-white shadow"
-                : "px-3 py-2 rounded-t-md text-gray-600 hover:bg-gray-100 hover:text-brand-700"
+                : "px-3 py-2 rounded-t-md text-brand-700 hover:bg-brand-100"
             }
           >
             {item.label}

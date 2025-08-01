@@ -58,7 +58,7 @@ export default function UploadPage({ params }: { params: { projectId: string } }
         />
         <button
           type="submit"
-          disabled={!file || status === "Uploading..."}
+          disabled={!file}
           className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded transition"
         >
           {status === "Uploading..." ? "Uploading..." : "Upload"}
