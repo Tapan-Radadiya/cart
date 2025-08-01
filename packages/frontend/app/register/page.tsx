@@ -98,12 +98,12 @@ export default function RegisterPage() {
           />
         </div>
         <button
-              type="submit"
-              className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-4 rounded transition"
-              disabled={loading}
-            >
-              {loading ? "Registering..." : "Register"}
-            </button>
+          type="submit"
+          className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-4 rounded transition"
+          disabled={submitting}
+        >
+          {submitting ? "Registering..." : "Register"}
+        </button>
           </form>
           <p className="mt-6 text-center text-gray-500 text-sm">
             Already have an account?{" "}

@@ -66,27 +66,22 @@ export default function DashboardPage() {
       <div className="bg-brand-100 border-b border-brand-200 px-8 py-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-brand-700">Dashboard</h1>
-          <Link
-            href="/dashboard/new"
-            className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded transition"
-          >
-            New Project
-          </Link>
+          {/* Remove any new/added links not present before */}
         </div>
-      </div>}
+      </div>
       {error && <div className="bg-red-100 text-red-700 px-3 py-2 rounded mb-4">{error}</div>}
       {(!loading && projects.length === 0) && (
         <div className="text-gray-600 italic">No projects yet. Create your first!</div>
       )}
       <ul className="space-y-2">
         {projects.map((p) => (
-          <li key={p.id} className="border rounded p-4 hover:bg-blue-50 transition">
+          <li key={p.id} className="border rounded p-4 hover:bg-brand-50 transition">
             <Link href={`/dashboard/${p.id}`}>
-              <span className="text-blue-700 font-semibold hover:underline">{p.name}</span>
+              <span className="text-brand-700 font-semibold hover:underline">{p.name}</span>
             </Link>
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   );
 }
