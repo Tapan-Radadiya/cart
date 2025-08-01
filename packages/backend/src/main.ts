@@ -3,12 +3,14 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
+import { contentParser } from 'fastify-file-interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
+  await app.register(contentParser);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors();
   const configService = app.get(ConfigService);

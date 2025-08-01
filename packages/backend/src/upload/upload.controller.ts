@@ -1,7 +1,6 @@
-import { Controller, Post, UploadedFile, UseInterceptors, Body, Req, Res, UseGuards } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Post, UploadedFile, UseInterceptors, Body, UseGuards } from '@nestjs/common';
+import { FileFastifyInterceptor } from 'fastify-file-interceptor';
 import { UploadService } from './upload.service';
-import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
@@ -10,13 +9,12 @@ export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileFastifyInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Body('projectId') projectId: string,
-    @Res() res: Response,
   ) {
     await this.uploadService.handleUpload(file, projectId);
-    return res.status(201).json({ success: true });
+    return { success: true };
   }
 }
