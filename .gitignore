@@ -10,3 +10,4 @@ node_modules
 /packages/frontend/.next
 /packages/frontend/out
 /packages/frontend/.env.local
+*.example

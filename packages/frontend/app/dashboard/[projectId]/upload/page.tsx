@@ -2,8 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-import ProjectNav from "@/components/ProjectNav";
-
+import ProjectNav from "components/ProjectNav";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333";
 
 export default function UploadPage({ params }: { params: { projectId: string } }) {
