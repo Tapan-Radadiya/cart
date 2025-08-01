@@ -6,7 +6,7 @@ Monorepo for a developer-first documentation platform using NestJS (backend) and
 
 ### Gemini Setup
 
-- The backend now uses Google Gemini via its OpenAI-compatible endpoint.
+- The backend now uses Google Gemini via the official `@google/genai` SDK.
 - You must set `GEMINI_API_KEY` in your `.env`.
 - `OPENAI_API_KEY` will still be accepted as a fallback during transition.
 
