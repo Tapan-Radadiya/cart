@@ -57,11 +57,12 @@ export default function UploadPage({ params }: { params: { projectId: string } }
           className="mb-4"
         />
         <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded font-semibold"
-        >
-          Upload
-        </button>
+              type="submit"
+              disabled={loading}
+              className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded transition"
+            >
+              {loading ? "Uploading..." : "Upload"}
+            </button>
       </form>
       {error && <div className="bg-red-100 text-red-700 px-3 py-2 mt-3 rounded">{error}</div>}
       <p className="mt-4">{status}</p>

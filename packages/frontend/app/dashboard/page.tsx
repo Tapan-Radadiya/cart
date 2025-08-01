@@ -62,26 +62,18 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-xl py-10">
-      <h1 className="text-2xl font-bold mb-4">Your Projects</h1>
-      <form onSubmit={handleCreate} className="flex gap-2 mb-6">
-        <input
-          type="text"
-          className="border px-2 py-1 rounded flex-1"
-          placeholder="New project name"
-          value={newProject}
-          onChange={(e) => setNewProject(e.target.value)}
-          disabled={creating}
-        />
-        <button
-          className="bg-blue-600 text-white px-4 py-1 rounded font-semibold"
-          disabled={creating}
-          type="submit"
-        >
-          {creating ? "Creating..." : "New project"}
-        </button>
-      </form>
-      {loading && <div className="text-gray-500">Loading...</div>}
+    <main className="flex flex-col min-h-screen">
+      <div className="bg-brand-100 border-b border-brand-200 px-8 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-brand-700">Dashboard</h1>
+          <Link
+            href="/dashboard/new"
+            className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded transition"
+          >
+            New Project
+          </Link>
+        </div>
+      </div>}
       {error && <div className="bg-red-100 text-red-700 px-3 py-2 rounded mb-4">{error}</div>}
       {(!loading && projects.length === 0) && (
         <div className="text-gray-600 italic">No projects yet. Create your first!</div>
