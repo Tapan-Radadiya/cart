@@ -2,39 +2,54 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import ProjectNav from "@/components/ProjectNav";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333";
 
 export default function ChatPage({ params }: { params: { projectId: string } }) {
   const { data: session } = useSession();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessages((msgs) => [...msgs, { from: "user", text: input }]);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333"}/api/chat`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(session?.accessToken
-            ? { Authorization: `Bearer ${session.accessToken}` }
-            : {}),
-        },
-        body: JSON.stringify({ projectId: params.projectId, message: input }),
-      }
-    );
-    const data = await res.json();
-    setMessages((msgs) => [
-      ...msgs,
-      { from: "ai", text: data.reply || "No reply" },
-    ]);
+    setError(null);
+    try {
+      const res = await fetch(
+        `${API_URL}/api/chat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(session?.accessToken
+              ? { Authorization: `Bearer ${session.accessToken}` }
+              : {}),
+          },
+          body: JSON.stringify({ projectId: params.projectId, message: input }),
+        }
+      );
+      const data = await res.json();
+      setMessages((msgs) => [
+        ...msgs,
+        { from: "ai", text: data.reply },
+      ]);
+    } catch {
+      setMessages((msgs) => [
+        ...msgs,
+        { from: "ai", text: "Error: Could not get reply." },
+      ]);
+      setError("Failed to send message. Please try again.");
+    }
     setInput("");
   };
 
   return (
     <div className="container max-w-lg mx-auto">
+      <ProjectNav projectId={params.projectId} active="chat" />
       <h1 className="text-xl font-bold mb-4">Project Chat</h1>
+      {error && <div className="bg-red-100 text-red-700 px-3 py-2 mb-3 rounded">{error}</div>}
       <div className="border rounded p-4 mb-4 h-64 overflow-y-auto flex flex-col gap-2 bg-gray-50">
         {messages.map((msg, i) => (
           <div key={i} className={msg.from === "user" ? "text-right" : "text-left"}>
