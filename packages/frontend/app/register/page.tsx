@@ -99,19 +99,21 @@ export default function RegisterPage() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 focus:outline-none focus:ring"
-          aria-disabled={submitting}
+          className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-4 rounded transition"
           disabled={submitting}
         >
           {submitting ? "Registering..." : "Register"}
         </button>
-      </form>
-      <p className="mt-6 text-center text-gray-600">
-        Already have an account?{" "}
-        <Link href="/login" className="text-blue-600 hover:underline">
-          Login
-        </Link>
-      </p>
+          </form>
+          <p className="mt-6 text-center text-gray-500 text-sm">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-brand-700 hover:text-brand-700 font-semibold transition"
+            >
+              Login
+            </Link>
+          </p>
     </div>
   );
 }
