@@ -4,6 +4,12 @@ Monorepo for a developer-first documentation platform using NestJS (backend) and
 
 ## Getting Started
 
+### Gemini Setup
+
+- The backend now uses Google Gemini via its OpenAI-compatible endpoint.
+- You must set `GEMINI_API_KEY` in your `.env`.
+- `OPENAI_API_KEY` will still be accepted as a fallback during transition.
+
 ```bash
 yarn install
 yarn dev:all
