@@ -1,36 +1,41 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-type Props = {
-  projectId: string;
-  active: "overview" | "upload" | "docs" | "chat";
-};
+interface Tab {
+  name: string;
+  href: string;
+}
 
-const navItems = [
-  { key: "overview", label: "Overview" },
-  { key: "upload", label: "Upload" },
-  { key: "docs", label: "Docs" },
-  { key: "chat", label: "Chat" },
+const tabs: Tab[] = [
+  { name: "Overview", href: "overview" },
+  { name: "Files", href: "files" },
+  { name: "Settings", href: "settings" },
 ];
 
-export default function ProjectNav({ projectId, active }: Props) {
+export function ProjectNav({ projectId }: { projectId: string }) {
+  const pathname = usePathname();
+
   return (
-    <nav className="flex gap-2 border-b border-gray-200 mb-6">
-      {navItems.map((item) => {
-        const isActive = active === item.key;
-        return (
-          <Link
-            key={item.key}
-            href={`/dashboard/${projectId}${item.key === "overview" ? "" : `/${item.key}`}`}
-            className={
-              isActive
-                ? "px-3 py-2 rounded-t-md bg-brand-600 text-white shadow"
-                : "px-3 py-2 rounded-t-md text-brand-700 hover:bg-brand-100"
-            }
-          >
-            {item.label}
-          </Link>
-        );
-      })}
+    <nav className="mb-8 border-b border-gray-200">
+      <ul className="-mb-px flex space-x-8">
+        {tabs.map((tab) => {
+          const active = pathname?.includes(`/dashboard/${projectId}/${tab.href}`);
+          return (
+            <li key={tab.name}>
+              <Link
+                href={`/dashboard/${projectId}/${tab.href}`}
+                className={
+                  active
+                    ? "border-brand-600 text-brand-700 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium"
+                    : "border-transparent text-brand-700 hover:bg-brand-100 hover:text-brand-700 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium"
+                }
+              >
+                {tab.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }
