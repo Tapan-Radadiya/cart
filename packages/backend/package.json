@@ -9,7 +9,8 @@
     "build": "nest build",
     "lint": "eslint src --ext .ts --fix",
     "prisma": "prisma",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -18,13 +19,17 @@
     "@nestjs/jwt": "^10.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-fastify": "^9.0.0",
-    "@prisma/client": "^4.0.0",
+    "@prisma/client": "^5.12.0",
     "argon2": "^0.28.4",
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
     "fastify-file-interceptor": "^1.0.9",
     "fastify-multer": "^4.3.1",
+    "mkdirp": "^3.0.1",
+    "openai": "^5.11.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
-    "prisma": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.8.1"
