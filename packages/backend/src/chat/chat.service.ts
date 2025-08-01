@@ -34,6 +34,6 @@ export class ChatService {
       max_tokens: 800,
     });
 
-    return { message: completion.choices[0].message.content };
+    return { reply: completion.choices[0].message.content };
   }
 }
