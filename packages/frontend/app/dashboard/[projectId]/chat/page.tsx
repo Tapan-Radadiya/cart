@@ -55,7 +55,7 @@ export default function ChatPage({ params }: { params: { projectId: string } }) 
             <span
               className={
                 msg.from === "user"
-                  ? "inline-block bg-blue-200 px-2 py-1 rounded"
+                  ? "inline-block bg-brand-200 px-2 py-1 rounded"
                   : "inline-block bg-gray-200 px-2 py-1 rounded"
               }
             >
@@ -71,7 +71,7 @@ export default function ChatPage({ params }: { params: { projectId: string } }) 
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask something..."
         />
-        <button className="bg-blue-600 text-white px-4 py-1 rounded font-semibold">
+        <button className="bg-brand-600 text-white px-4 py-1 rounded font-semibold">
           Send
         </button>
       </form>

@@ -1,33 +1,41 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-type Props = {
-  projectId: string;
-  active: "overview" | "upload" | "docs" | "chat";
-};
+interface Tab {
+  name: string;
+  href: string;
+}
 
-const navItems = [
-  { key: "overview", label: "Overview" },
-  { key: "upload", label: "Upload" },
-  { key: "docs", label: "Docs" },
-  { key: "chat", label: "Chat" },
+const tabs: Tab[] = [
+  { name: "Overview", href: "overview" },
+  { name: "Files", href: "files" },
+  { name: "Settings", href: "settings" },
 ];
 
-export default function ProjectNav({ projectId, active }: Props) {
+export function ProjectNav({ projectId }: { projectId: string }) {
+  const pathname = usePathname();
+
   return (
-    <nav className="flex gap-4 border-b mb-6 pb-2">
-      {navItems.map((item) => (
-        <Link
-          key={item.key}
-          href={`/dashboard/${projectId}${item.key === "overview" ? "" : `/${item.key}`}`}
-          className={`px-2 py-1 rounded font-medium transition ${
-            active === item.key
-              ? "bg-blue-600 text-white"
-              : "text-blue-700 hover:bg-blue-100"
-          }`}
-        >
-          {item.label}
-        </Link>
-      ))}
+    <nav className="mb-8 border-b border-gray-200">
+      <ul className="-mb-px flex space-x-8">
+        {tabs.map((tab) => {
+          const active = pathname?.includes(`/dashboard/${projectId}/${tab.href}`);
+          return (
+            <li key={tab.name}>
+              <Link
+                href={`/dashboard/${projectId}/${tab.href}`}
+                className={
+                  active
+                    ? "border-brand-600 text-brand-700 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium"
+                    : "border-transparent text-brand-700 hover:bg-brand-100 hover:text-brand-700 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium"
+                }
+              >
+                {tab.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }
