@@ -14,20 +14,23 @@ const navItems = [
 
 export default function ProjectNav({ projectId, active }: Props) {
   return (
-    <nav className="flex gap-4 border-b mb-6 pb-2">
-      {navItems.map((item) => (
-        <Link
-          key={item.key}
-          href={`/dashboard/${projectId}${item.key === "overview" ? "" : `/${item.key}`}`}
-          className={`px-2 py-1 rounded font-medium transition ${
-            active === item.key
-              ? "bg-blue-600 text-white"
-              : "text-blue-700 hover:bg-blue-100"
-          }`}
-        >
-          {item.label}
-        </Link>
-      ))}
+    <nav className="flex gap-2 border-b border-gray-200 mb-6">
+      {navItems.map((item) => {
+        const isActive = active === item.key;
+        return (
+          <Link
+            key={item.key}
+            href={`/dashboard/${projectId}${item.key === "overview" ? "" : `/${item.key}`}`}
+            className={
+              isActive
+                ? "px-3 py-2 rounded-t-md bg-brand-600 text-white shadow"
+                : "px-3 py-2 rounded-t-md text-gray-600 hover:bg-gray-100 hover:text-brand-700"
+            }
+          >
+            {item.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
