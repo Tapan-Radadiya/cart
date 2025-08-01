@@ -26,11 +26,18 @@ export function NavBar() {
             </li>
           </>
         ) : (
-          <li>
-            <Link href="/login" className="hover:underline">
-              Login
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link href="/login" className="hover:underline">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link href="/register" className="hover:underline">
+                Register
+              </Link>
+            </li>
+          </>
         )}
       </ul>
     </nav>

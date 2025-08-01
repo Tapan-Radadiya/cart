@@ -18,3 +18,19 @@ yarn dev:all
 - `/packages/frontend` — Next.js 14 (App Router, NextAuth.js, Tailwind)
 
 See `/configs/` for shared lint/formatting/tsconfig.
+
+## Seeding
+
+To seed the development database with a demo user, run:
+
+```bash
+yarn workspace backend seed
+```
+
+This will create a demo user and project for local testing.  
+**Default login credentials:**
+
+- Email: `demo@example.com`
+- Password: `password123`
+
+You can now log in with these credentials after starting both backend and frontend (`yarn dev:all`).
